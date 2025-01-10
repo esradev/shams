@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, FlatList, StatusBar, View } from "react-native";
+import { Text, FlatList, StatusBar, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import axios from "axios";
@@ -8,7 +8,7 @@ import PostCard from "@/components/PostCard";
 import { Href } from "expo-router";
 
 export default function Home() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<{ id: number; name: string; count: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -52,11 +52,15 @@ export default function Home() {
   const renderItem = ({ item }: { item: { id: number; name: string; count: number } }) => <PostCard href={`/category/${item.id}` as Href} title={`${item.name} `} desc={`${item.count} جلسه `} />;
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100 mb-24">
-      <View className="p-4">
-        <FlatList data={categories} renderItem={renderItem} keyExtractor={item => item.id.toString()} />
-      </View>
-      <StatusBar barStyle="dark-content" backgroundColor="#16a34a" />
+    <SafeAreaView className="flex-1 bg-amber-50 mb-24">
+      <ScrollView>
+        <View className="p-4">
+          {categories.map(category => (
+            <PostCard key={category.id} href={`/category/${category.id}` as Href} title={`${category.name} `} desc={`${category.count} جلسه `} />
+          ))}
+        </View>
+        <StatusBar barStyle="dark-content" backgroundColor="#16a34a" />
+      </ScrollView>
     </SafeAreaView>
   );
 }

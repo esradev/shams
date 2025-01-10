@@ -11,14 +11,14 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ href, title, desc }) => {
   return (
-    <TouchableOpacity className="flex flex-row-reverse align-middle items-center truncate rounded-md border border-gray-200 bg-white p-4 mb-4" onPress={() => {}}>
+    <TouchableOpacity className="flex flex-row-reverse align-middle items-center truncate rounded-xl bg-white p-4 mb-4" onPress={() => {}}>
       <View className="flex-1 gap-1">
         <Link href={href} className="items-center content-center align-middle">
-          <Text className="flex font-bold text-xl text-gray-900 hover:text-gray-600">{title}</Text>
+          <Text className="flex font-bold text-right text-2xl text-gray-900 hover:text-gray-600">{title}</Text>
         </Link>
-        {desc && <Text className="text-sm text-gray-500">{desc}</Text>}
+        {desc && <Text className="text-base text-right text-gray-500">{desc}</Text>}
       </View>
-      <TouchableOpacity onPress={() => {}} className="flex-shrink-0 rounded-full items-center justify-center p-2 bg-gray-50">
+      <TouchableOpacity onPress={() => {}} className="flex-shrink-0 rounded-full items-center justify-center p-2 bg-gray-200">
         <Link href={href} className="items-center content-center align-middle">
           <MaterialIcons name="chevron-left" size={24} color="black" />
         </Link>

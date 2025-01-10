@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StatusBar, ScrollView, View } from "react-native";
+import { Text, StatusBar, ScrollView, View, FlatList } from "react-native";
 import { Href, useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -89,22 +89,12 @@ const CategoryPosts = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white mb-12">
+    <SafeAreaView className="flex-1 bg-amber-50 mb-12">
       <ScrollView className="p-4">
-        <View>
-          {isFetching ? (
-            <PostCardLoading count={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />
-          ) : (
-            <View className="flex flex-col">
-              {posts.map(post => (
-                <PostCard key={post.id} href={`/post/${post.id}` as Href} title={post.title.rendered} desc={`تاریخ بحث: ${post?.meta["date-of-the-lesson"]}`} />
-              ))}
-
-              {Pagination({ page, setPage, totalPages })}
-            </View>
-          )}
-        </View>
+        <View>{isFetching ? <PostCardLoading count={[1, 2, 3, 4, 5, 6, 7, 8, 9]} /> : posts.map(post => <PostCard key={post.id} href={`/post/${post.id}` as Href} title={post.title.rendered} desc={post.meta["date-of-the-lesson"]} />)}</View>
       </ScrollView>
+
+      <Pagination page={page} totalPages={totalPages} setPage={setPage} />
 
       <StatusBar barStyle="dark-content" backgroundColor="#16a34a" />
     </SafeAreaView>

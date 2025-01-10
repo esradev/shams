@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StatusBar, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { Text, View, StatusBar, ScrollView, TouchableOpacity, Alert, GestureResponderEvent } from "react-native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RenderHTML from "react-native-render-html";
@@ -213,8 +213,12 @@ const PostDetail = () => {
     );
   }
 
+  const handleSettings = (event: GestureResponderEvent) => {
+    Alert.alert("Settings", "Settings button pressed.");
+  };
+
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-amber-50">
       <ScrollView className="p-4">
         <RenderHTML
           contentWidth={400} // Adjust contentWidth based on your layout
@@ -224,14 +228,19 @@ const PostDetail = () => {
           baseStyle={{
             fontSize: 18,
             lineHeight: 26,
-            color: "#333"
+            color: "#333",
+            textAlign: "right"
           }}
         />
       </ScrollView>
 
       {post?.meta["the-audio-of-the-lesson"] && (
-        <View className="absolute bottom-0 pb-16 w-full bg-green-100 p-4 rounded-3xl align-middle ">
+        <View className="absolute bottom-0 pb-20 w-full bg-amber-200 p-4 align-middle">
           <View className="flex flex-row justify-around mb-2">
+            <TouchableOpacity onPress={handleSettings}>
+              <MaterialIcons name="settings-suggest" size={30} color="black" />
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={handleBackward}>
               <MaterialIcons name="replay-30" size={30} color="black" />
             </TouchableOpacity>
